@@ -1,12 +1,9 @@
 import {Icon, IconButton, VStack} from '@chakra-ui/react'
 import {Square} from 'react-feather'
-// import {useContext} from 'react'
-// import {ElementsContext} from './Canvas'
 import {useSetRecoilState} from 'recoil'
 import {elementsState} from './Canvas'
 
 export const Toolbar = () => {
-    // const {addElement} = useContext(ElementsContext)
     const setElements = useSetRecoilState(elementsState)
 
     return (
@@ -21,7 +18,6 @@ export const Toolbar = () => {
             spacing={2}
         >
             <IconButton
-                // onClick={addElement}
                 onClick={() => {
                     setElements((elements) => [...elements, elements.length])
                 }}
