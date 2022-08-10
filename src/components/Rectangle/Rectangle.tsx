@@ -20,8 +20,8 @@ const elementState = atomFamily<Element, number>({
     key: 'element',
     default: {
         style: {
-            position: {top: 0, left: 0},
-            size: {width: 50, height: 50},
+            position: {top: 100, left: 100},
+            size: {width: 100, height: 100},
         },
     },
 })
