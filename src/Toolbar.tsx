@@ -1,7 +1,12 @@
 import {Icon, IconButton, VStack} from '@chakra-ui/react'
 import {Square} from 'react-feather'
-import {useSetRecoilState} from 'recoil'
-import {elementsState} from './Canvas'
+import {atom, useSetRecoilState} from 'recoil'
+
+// -- ELEMENTS IDs
+export const elementsState = atom<number[]>({
+    key: 'elements',
+    default: [],
+})
 
 export const Toolbar = () => {
     const setElements = useSetRecoilState(elementsState)
