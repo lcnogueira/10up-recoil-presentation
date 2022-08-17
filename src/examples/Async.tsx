@@ -1,7 +1,8 @@
 import {Container, Heading, Text} from '@chakra-ui/layout'
+import {Button} from '@chakra-ui/react'
 import {Select} from '@chakra-ui/select'
 import {Suspense, useState} from 'react'
-import {selectorFamily, useRecoilValue} from 'recoil'
+import {atomFamily, selectorFamily, useRecoilValue, useSetRecoilState} from 'recoil'
 import {getWeather} from './fakeAPI'
 
 const userState = selectorFamily({
@@ -13,11 +14,24 @@ const userState = selectorFamily({
     },
 })
 
+//used to force a refetch on the weather state (ODD!!!!!!)
+const weatherRequestIdState = atomFamily({
+    key: 'weatherRequestId',
+    default: 0,
+})
+
+const useRefetchWeather = (userId: number) => {
+    const setRequestId = useSetRecoilState(weatherRequestIdState(userId))
+    return () => setRequestId((id) => id + 1)
+}
+
 const weatherState = selectorFamily({
     key: 'weather',
     get:
         (userId: number) =>
         async ({get}) => {
+            //force the selector to refresh
+            get(weatherRequestIdState(userId))
             //No need to await (altough there's an async function in the selectorFamily)
             const user = get(userState(userId))
             const weather = await getWeather(user.address.city)
@@ -28,10 +42,15 @@ const weatherState = selectorFamily({
 const UserWeather = ({userId}: {userId: number}) => {
     const weather = useRecoilValue(weatherState(userId))
     const user = useRecoilValue(userState(userId))
+    const refetch = useRefetchWeather(userId)
+
     return (
-        <Text>
-            <b>Weather for {user.address.city}:</b> {weather}C
-        </Text>
+        <>
+            <Text>
+                <b>Weather for {user.address.city}:</b> {weather}C
+            </Text>
+            <Button onClick={refetch}>Refresh</Button>
+        </>
     )
 }
 
