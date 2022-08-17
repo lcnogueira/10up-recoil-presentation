@@ -2,6 +2,7 @@ import {Container, Heading, Text} from '@chakra-ui/layout'
 import {Select} from '@chakra-ui/select'
 import {Suspense, useState} from 'react'
 import {selectorFamily, useRecoilValue} from 'recoil'
+import {getWeather} from './fakeAPI'
 
 const userState = selectorFamily({
     key: 'user',
@@ -12,7 +13,30 @@ const userState = selectorFamily({
     },
 })
 
+const weatherState = selectorFamily({
+    key: 'weather',
+    get:
+        (userId: number) =>
+        async ({get}) => {
+            //No need to await (altough there's an async function in the selectorFamily)
+            const user = get(userState(userId))
+            const weather = await getWeather(user.address.city)
+            return weather
+        },
+})
+
+const UserWeather = ({userId}: {userId: number}) => {
+    const weather = useRecoilValue(weatherState(userId))
+    const user = useRecoilValue(userState(userId))
+    return (
+        <Text>
+            <b>Weather for {user.address.city}:</b> {weather}C
+        </Text>
+    )
+}
+
 const UserData = ({userId}: {userId: number}) => {
+    //no problem in calling the same selectorFamily in different places since the fetch only happens once
     const user = useRecoilValue(userState(userId))
 
     return (
@@ -26,6 +50,9 @@ const UserData = ({userId}: {userId: number}) => {
             <Text>
                 <b>Phone:</b> {user.phone}
             </Text>
+            <Suspense fallback={<div>loading weather...</div>}>
+                <UserWeather userId={userId} />
+            </Suspense>
         </div>
     )
 }
