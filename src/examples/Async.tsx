@@ -81,14 +81,13 @@ const UserData = ({userId}: {userId: number}) => {
     )
 }
 
-const ErrorFallback = ({error, resetErrorBoundary}: FallbackProps) => {
+const ErrorFallback = ({error}: FallbackProps) => {
     return (
         <div>
             <Heading as="h2" size="md" mb={1}>
                 Something went wrong
             </Heading>
             <Text>{error.message}</Text>
-            <Button onClick={resetErrorBoundary}>OK</Button>
         </div>
     )
 }
@@ -121,7 +120,6 @@ export const Async = () => {
             {userId !== undefined && (
                 <ErrorBoundary
                     FallbackComponent={ErrorFallback}
-                    onReset={() => setUserId(undefined)}
                     resetKeys={[userId]}
                 >
                     <Suspense fallback={<div>Loading...</div>}>
