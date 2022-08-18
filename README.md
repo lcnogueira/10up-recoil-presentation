@@ -1,24 +1,7 @@
-# Excalidraw Clone built with Recoil
+# 10up Recoil Presentation
 
-This is the start of an [Exaclidraw](https://excalidraw.com/) clone that I am building with [Recoil](https://recoiljs.org/).
+This is the app created for a Recoil presentation at 10up. It was created based on a course that you can find in the [externals resources from the docs](https://recoiljs.org/resources).
 
-It is for my **upcoming free Recoil course**, [Learn Recoil](https://learnrecoil.com/), where I will show you how to build a **full featured Excalidraw clone using Recoil** for state management.
+## Personal notes
 
-## What you'll learn to build in the course (on top of what's already in this repo)...
-
--   🔄 Rotating shapes
--   ✌️ Multi-select
--   🔵 More kinds of shapes
--   💾 Saving a drawing to a file and opening it again
--   🌍 Saving the drawing to a server (shareable drawing URL)
--   🌄 Loading content (e.g. images) from an API with Recoil and Suspense
--   👯‍♂️ Enabling concurrent mode
--   🧪 Adding full test coverage
--   🤔 Your own dev tools for debugging
--   🔑 Authentication
--   🏃 Performance debugging, testing, and improvement
--   And more...
-
-**Have any other suggestions? Tweet or DM me [@jacques_codes](https://twitter.com/jacques_codes).**
-
-## Sign up for the Recoil course here 👉 https://learnrecoil.com/ 👈 today!
+You can find a notion page [here](https://www.notion.so/Recoil-8b37a85b54e6446d80d96b4f8971f2a6) with some notes I made when creating the presentation.
